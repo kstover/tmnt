@@ -50,36 +50,42 @@ function tmnt_tutorial() {
 	Please select your favourite TMNT Character!
 	<ul>
 		<li>
-			<label><input type="radio" class="radio-character" name="character" value="leonardo"> Leonardo</label>
+			<label><input type="radio" class="character" name="character" value="leonardo"> Leonardo</label>
 		</li>
 		<li>
-			<label><input type="radio" class="radio-character" name="character" value="raphael"> Raphael</label>
+			<label><input type="radio" class="character" name="character" value="raphael"> Raphael</label>
 		</li>
 		<li>
-			<label><input type="radio" class="radio-character" name="character" value="michelangelo"> Michelangelo</label>
+			<label><input type="radio" class="character" name="character" value="michelangelo"> Michelangelo</label>
 		</li>
 		<li>
-			<label><input type="radio" class="radio-character" name="character" value="donatello"> Donatello</label>
+			<label><input type="radio" class="character" name="character" value="donatello"> Donatello</label>
 		</li>
+		<li>
+			<label><input type="radio" class="character" name="character" value="" checked="checked"> Reset</label>
+		</li>		
 	</ul>
-
-	<div class="contact-card">
-	   <div class="profile-pic">
-	       <img src="http://placehold.it/100x100">
-	   </div>
-	   <div class="profile-info">
-	       <h2 class="name"></h2>
-	       <ul>
-	           <li>Favourite Weapon: <span class="weapon"></span></li>
-	           <li>Favourite Colour: <span class="colour"></span></li>
-	           <li>Favourite Saying: <span class="saying"></span></li>
-	           <li>Favourite Food: <span class="food"></span></li>
-	       </ul>
-	   </div>
+	<div class="character-info" style="display:none">
+		Your favourite character is <h3 class="character-name"></h3>
+		<div class="contact-card">
+		   <div class="profile-pic">
+		       <img class="img" src="http://placehold.it/100x100">
+		   </div>
+		   <div class="profile-info">
+		       <h2 class="name"></h2>
+		       <ul>
+		           <li>Favourite Weapon: <span class="weapon"></span></li>
+		           <li>Favourite Colour: <span class="colour"></span></li>
+		           <li>Favourite Saying: <span class="saying"></span></li>
+		           <li>Favourite Food: <span class="food"></span></li>
+		       </ul>
+		   </div>
+		</div>
 	</div>
 	<?php
 }
 
 function tmnt_tutorial_css_js() {
 	wp_enqueue_script( 'tmnt-tutorial', plugin_dir_url( __FILE__ ) .'admin.js' );
+	wp_localize_script( 'tmnt-tutorial', 'tmnt', array( 'imgSrc' => plugin_dir_url( __FILE__ ) . 'images/' ) );
 }
