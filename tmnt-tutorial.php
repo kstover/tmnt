@@ -66,7 +66,6 @@ function tmnt_tutorial() {
 		</li>		
 	</ul>
 	<div class="character-info" style="display:none">
-		Your favourite character is <h3 class="character-name"></h3>
 		<div class="contact-card">
 		   <div class="profile-pic">
 		       <img class="img" src="http://placehold.it/100x100">
@@ -81,6 +80,32 @@ function tmnt_tutorial() {
 		       </ul>
 		   </div>
 		</div>
+	</div>
+	<div class="new-characters">
+		<h5>Add a new character:</h5>
+		<ul>
+			<li>
+				<label>Name: <input type="text" class="new-name code"></label>
+			</li>
+			<li>
+				<label>Image URL: <input type="url" class="new-url code"></label>
+			</li>
+			<li>
+				<label>Favourite Weapon: <input type="text" class="new-weapon code"></label>
+			</li>
+			<li>
+				<label>Favourite Colour: <input type="text" class="new-colour code"></label>
+			</li>
+			<li>
+				<label>Favourite Saying: <input type="text" class="new-saying code"></label>
+			</li>
+			<li>
+				<label>Favourite Food: <input type="text" class="new-food code"></label>
+			</li>
+			<li>
+				<label><input type="button" class="button-primary submit-new" value="Add"></label>
+			</li>
+		</ul>
 	</div>
 	<?php
 }

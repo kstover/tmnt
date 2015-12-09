@@ -49,7 +49,7 @@ jQuery( document ).ready( function( $ ) {
 		$( '.food' ).html( food );
 		$( '.colour' ).html( colour );
 		$( '.saying' ).html( saying );
-		$( '.character-name' ).html( characterName );
+		$( '.name' ).html( characterName );
 		$( '.img' ).attr( 'src', img );
 
 		// Show the character info section if we havent't selected the 'reset' option.
