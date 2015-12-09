@@ -1,15 +1,10 @@
 jQuery( document ).ready( function( $ ) {
-	$( '.character' ).change( function( e ) {
+	/*
+	 * When someone changes their radio selection, change the contact card.	 * 
+	 */
+	$( document ).on( 'change', '.character', function( e ) {
 		// Set variables based on our character selection.
 		switch( $( this ).val() ) {
-			case '':
-				var weapon = '';
-				var food = '';
-				var colour = '';
-				var saying = '';
-				var img = 'http://placehold.it/100x100';
-				var characterName = '';
-				break;
 			case 'leonardo':
 				var weapon = 'Katana';
 				var food = 'Jelly Bean Pizza';
@@ -52,6 +47,9 @@ jQuery( document ).ready( function( $ ) {
 		$( '.name' ).html( characterName );
 		$( '.img' ).attr( 'src', img );
 
+		// Set our delete character data character so that we can delete this character.
+		$( '.delete' ).data( 'character', $( this ).val() );
+
 		// Show the character info section if we havent't selected the 'reset' option.
 		if ( $( this ).val() == '' ) {
 			$( '.character-info' ).hide();
@@ -59,4 +57,59 @@ jQuery( document ).ready( function( $ ) {
 			$( '.character-info' ).show();
 		}
 	} );
+	
+	/*
+	 * When someone clicks the reset button, clear and hide the contact card and remove selections on our radio.
+	 */
+	$( '.reset' ).click( function( e ) {
+		// Clear our character selection radio buttons
+		$( '.character' ).each( function() {
+			$( this ).attr( 'checked', false );
+		} );
+
+		// Clear our contact card
+		tmntClearHideCard();
+
+		// Reset our character list
+		var html = '<li><label><input type="radio" class="character" name="character" value="leonardo"> Leonardo</label></li>';
+		html += '<li><label><input type="radio" class="character" name="character" value="raphael"> Raphael</label></li>';
+		html += '<li><label><input type="radio" class="character" name="character" value="michelangelo"> Michelangelo</label></li>';
+		html += '<li><label><input type="radio" class="character" name="character" value="donatello"> Donatello</label></li>';
+		
+		$( '.characters' ).html( html );
+	} );
+
+	/*
+	 * When someone clicks on the delete button:
+	 * 
+	 * Remove their radio button
+	 * Clear and hide the contact card
+	 */
+	$( document ).on( 'click', '.delete', function( e ) {
+		// Remove the radio button for this character
+		$( '.character[value="' + $( this ).data( 'character' ) + '"]').parent().remove();
+		// Clear our contact card
+		tmntClearHideCard();
+	} );
+
+	function tmntClearHideCard() {
+		// Clear our contact card
+		var weapon = '';
+		var food = '';
+		var colour = '';
+		var saying = '';
+		var img = 'http://placehold.it/100x100';
+		var characterName = '';
+
+		// Change our DOM using the variables above.
+		$( '.weapon' ).html( weapon );
+		$( '.food' ).html( food );
+		$( '.colour' ).html( colour );
+		$( '.saying' ).html( saying );
+		$( '.name' ).html( characterName );
+		$( '.img' ).attr( 'src', img );
+
+		// Show the character info section if we havent't selected the 'reset' option.
+		$( '.character-info' ).hide();
+	}
 } );

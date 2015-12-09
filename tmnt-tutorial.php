@@ -46,66 +46,40 @@ function tmnt_tutorial() {
 	   width: 205px;
 	}
 	</style>
-
-	Please select your favourite TMNT Character!
-	<ul>
-		<li>
-			<label><input type="radio" class="character" name="character" value="leonardo"> Leonardo</label>
-		</li>
-		<li>
-			<label><input type="radio" class="character" name="character" value="raphael"> Raphael</label>
-		</li>
-		<li>
-			<label><input type="radio" class="character" name="character" value="michelangelo"> Michelangelo</label>
-		</li>
-		<li>
-			<label><input type="radio" class="character" name="character" value="donatello"> Donatello</label>
-		</li>
-		<li>
-			<label><input type="radio" class="character" name="character" value="" checked="checked"> Reset</label>
-		</li>		
-	</ul>
-	<div class="character-info" style="display:none">
-		<div class="contact-card">
-		   <div class="profile-pic">
-		       <img class="img" src="http://placehold.it/100x100">
-		   </div>
-		   <div class="profile-info">
-		       <h2 class="name"></h2>
-		       <ul>
-		           <li>Favourite Weapon: <span class="weapon"></span></li>
-		           <li>Favourite Colour: <span class="colour"></span></li>
-		           <li>Favourite Saying: <span class="saying"></span></li>
-		           <li>Favourite Food: <span class="food"></span></li>
-		       </ul>
-		   </div>
-		</div>
-	</div>
-	<div class="new-characters">
-		<h5>Add a new character:</h5>
-		<ul>
+	<div>
+		Select A TMNT Character!
+		<ul class="characters">
 			<li>
-				<label>Name: <input type="text" class="new-name code"></label>
+				<label><input type="radio" class="character" name="character" value="leonardo"> Leonardo</label>
 			</li>
 			<li>
-				<label>Image URL: <input type="url" class="new-url code"></label>
+				<label><input type="radio" class="character" name="character" value="raphael"> Raphael</label>
 			</li>
 			<li>
-				<label>Favourite Weapon: <input type="text" class="new-weapon code"></label>
+				<label><input type="radio" class="character" name="character" value="michelangelo"> Michelangelo</label>
 			</li>
 			<li>
-				<label>Favourite Colour: <input type="text" class="new-colour code"></label>
-			</li>
-			<li>
-				<label>Favourite Saying: <input type="text" class="new-saying code"></label>
-			</li>
-			<li>
-				<label>Favourite Food: <input type="text" class="new-food code"></label>
-			</li>
-			<li>
-				<label><input type="button" class="button-primary submit-new" value="Add"></label>
+				<label><input type="radio" class="character" name="character" value="donatello"> Donatello</label>
 			</li>
 		</ul>
+		<input type="button" class="button-secondary reset" value="Reset">
+		<div class="character-info" style="display:none">
+			<div class="contact-card">
+			   <div class="profile-pic">
+			       <img class="img" src="http://placehold.it/100x100">
+			   </div>
+			   <div class="profile-info">
+			       <h2 class="name"></h2>
+			       <ul>
+			           <li><strong>Favourite Weapon:</strong> <span class="weapon"></span></li>
+			           <li><strong>Favourite Colour:</strong> <span class="colour"></span></li>
+			           <li><strong>Favourite Saying:</strong> <span class="saying"></span></li>
+			           <li><strong>Favourite Food:</strong> <span class="food"></span></li>
+			       </ul>
+			       <a href="#" class="delete">Delete</a>
+			   </div>
+			</div>
+		</div>
 	</div>
 	<?php
 }
