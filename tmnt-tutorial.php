@@ -19,14 +19,34 @@ add_action( 'admin_menu', 'tmnt_tutorial_add_menu' );
 /**
  * This is our main admin output function.
  * It includes an inline style section and requires a JS file.
- * 
+ *
  * @since  1.0
  * @return void
  */
 function tmnt_tutorial() {
 	?>
 	<style>
+	.character-select {
+		float: left;
+		display: block;
+		width: 200px;
+	}
+	.character-select::after {
+	   clear: both;
+	   content: "";
+	   display: block;
+	}
+	.character-info {
+	   float: left;
+	   width: 400px;
+	}
+	.character-info::after {
+	   clear: both;
+	   content: "";
+	   display: block;
+	}
 	.contact-card {
+	   background: #fff;
 	   border: 1px solid #ccc;
 	   width: 400px;
 	}
@@ -42,27 +62,29 @@ function tmnt_tutorial() {
 	}
 	.contact-card .profile-info {
 	   float: left;
-	   padding: 0 20px;
+	   padding: 0 20px 20px;
 	   width: 205px;
 	}
 	</style>
 	<div>
-		Select A TMNT Character!
-		<ul class="characters">
-			<li>
-				<label><input type="radio" class="character" name="character" value="leonardo"> Leonardo</label>
-			</li>
-			<li>
-				<label><input type="radio" class="character" name="character" value="raphael"> Raphael</label>
-			</li>
-			<li>
-				<label><input type="radio" class="character" name="character" value="michelangelo"> Michelangelo</label>
-			</li>
-			<li>
-				<label><input type="radio" class="character" name="character" value="donatello"> Donatello</label>
-			</li>
-		</ul>
-		<input type="button" class="button-secondary reset" value="Reset">
+		<h1>Select A TMNT Character!</h1>
+		<div class="character-select">
+			<ul class="characters">
+				<li>
+					<label><input type="radio" class="character" name="character" value="leonardo"> Leonardo</label>
+				</li>
+				<li>
+					<label><input type="radio" class="character" name="character" value="raphael"> Raphael</label>
+				</li>
+				<li>
+					<label><input type="radio" class="character" name="character" value="michelangelo"> Michelangelo</label>
+				</li>
+				<li>
+					<label><input type="radio" class="character" name="character" value="donatello"> Donatello</label>
+				</li>
+			</ul>
+			<input type="button" class="button-secondary reset" value="Reset">
+		</div>
 		<div class="character-info" style="display:none">
 			<div class="contact-card">
 			   <div class="profile-pic">
