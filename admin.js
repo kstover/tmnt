@@ -76,7 +76,8 @@ jQuery( document ).ready( function( $ ) {
 	var CharacterSelectView = Backbone.View.extend( {
 		// This is the jQuery/CSS selector that represents the DOM element we are going to reference in our render function.
 		el: '.character-select',
-		template: '#tmpl-character-radio',
+		liTemplate: '#tmpl-character-radio',
+		resetTemplate: '#tmpl-character-reset',
 
 		initialize: function() {
 			// Backbone views don't automatically render when you create them, so if we want to self-render, we have to do that here.
@@ -89,15 +90,14 @@ jQuery( document ).ready( function( $ ) {
 			this.collection.on( 'reset', this.render, this );
 		},
 
-		//
 		render: function() {
-			var html = '<ul class="characters">';
+			var html = '<ul>';
 			var that = this;
 			_.each( this.collection.models, function( character ) {
-				html += _.template( $( that.template ).html(), character.attributes );
+				html += _.template( $( that.liTemplate ).html(), character.attributes );
 			} );
 			html += '</ul>';
-			html += '<input type="button" class="button-secondary reset" value="Reset">';
+			html += _.template( $( this.resetTemplate ).html(), {} );
 
 			// This sets our view element HTML. It actually injects the html var into our DOM.
 			this.$el.html( html );
@@ -118,6 +118,7 @@ jQuery( document ).ready( function( $ ) {
 
 		clickReset: function( e ) {
 			characters.reset( defaultCharacters );
+			cardView.render();
 		}
 
 	} );
@@ -128,13 +129,18 @@ jQuery( document ).ready( function( $ ) {
 	 var CardView = Backbone.View.extend( {
 	 	el: '.contact-card',
 	 	template: '#tmpl-contact-card',
+	 	emptyTemplate: '#tmpl-contact-card-empty',
+
+	 	initialize: function() {
+	 		this.render();
+	 	},
 
 	 	render: function( model ) {
 	 		if ( model ) {
 	 			this.model = model;
 	 			var html = _.template( $( this.template ).html(), model.attributes );
 	 		} else {
-	 			var html = '';
+	 			var html = _.template( $( this.emptyTemplate ).html() );
 	 		}
 	 		this.$el.html( html );
 	 		return this;

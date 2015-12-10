@@ -65,21 +65,30 @@ function tmnt_tutorial() {
 	   padding: 0 20px 20px;
 	   width: 205px;
 	}
+	.contact-card h4 {
+		margin-left: 85px;
+	}
 	</style>
 	<div>
 		<h1>Select A TMNT Character!</h1>
-		<div class="character-select">
-			<ul class="characters"></ul>
-		</div>
+		<div class="character-select"></div>
 		<div class="character-info">
 			<div class="contact-card"></div>
 		</div>
 	</div>
 
+	<script id="tmpl-contact-card-empty" type="text/template">
+		<h4>Character Info Will Appear Here</h4>
+	</script>
+
 	<script id="tmpl-character-radio" type="text/template">
 		<li>
 			<label><input type="radio" class="character" name="character" value="<%= id %>"> <%= name %></label>
 		</li>
+	</script>
+
+	<script id="tmpl-character-reset" type="text/template">
+		<input type="button" class="button-secondary reset" value="Reset">
 	</script>
 
 	<script id="tmpl-contact-card" type="text/template">
