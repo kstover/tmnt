@@ -69,44 +69,38 @@ function tmnt_tutorial() {
 	<div>
 		<h1>Select A TMNT Character!</h1>
 		<div class="character-select">
-			<ul class="characters">
-				<li>
-					<label><input type="radio" class="character" name="character" value="leonardo"> Leonardo</label>
-				</li>
-				<li>
-					<label><input type="radio" class="character" name="character" value="raphael"> Raphael</label>
-				</li>
-				<li>
-					<label><input type="radio" class="character" name="character" value="michelangelo"> Michelangelo</label>
-				</li>
-				<li>
-					<label><input type="radio" class="character" name="character" value="donatello"> Donatello</label>
-				</li>
-			</ul>
-			<input type="button" class="button-secondary reset" value="Reset">
+			<ul class="characters"></ul>
 		</div>
-		<div class="character-info" style="display:none">
-			<div class="contact-card">
-			   <div class="profile-pic">
-			       <img class="img" src="http://placehold.it/100x100">
-			   </div>
-			   <div class="profile-info">
-			       <h2 class="name"></h2>
-			       <ul>
-			           <li><strong>Favourite Weapon:</strong> <span class="weapon"></span></li>
-			           <li><strong>Favourite Colour:</strong> <span class="colour"></span></li>
-			           <li><strong>Favourite Saying:</strong> <span class="saying"></span></li>
-			           <li><strong>Favourite Food:</strong> <span class="food"></span></li>
-			       </ul>
-			       <a href="#" class="delete">Delete</a>
-			   </div>
-			</div>
+		<div class="character-info">
+			<div class="contact-card"></div>
 		</div>
 	</div>
+
+	<script id="tmpl-character-radio" type="text/template">
+		<li>
+			<label><input type="radio" class="character" name="character" value="<%= id %>"> <%= name %></label>
+		</li>
+	</script>
+
+	<script id="tmpl-contact-card" type="text/template">
+		<div class="profile-pic">
+	       <img class="img" src="<%= img %>">
+	   </div>
+	   <div class="profile-info">
+	       <h2 class="name"><%= name %></h2>
+	       <ul>
+	           <li><strong>Favourite Weapon:</strong> <%= weapon %></li>
+	           <li><strong>Favourite Colour:</strong> <%= colour %></li>
+	           <li><strong>Favourite Saying:</strong> <%= saying %></li>
+	           <li><strong>Favourite Food:</strong> <%= food %></li>
+	       </ul>
+	       <a href="#" class="delete">Delete</a>
+	   </div>
+	</script>
 	<?php
 }
 
 function tmnt_tutorial_css_js() {
-	wp_enqueue_script( 'tmnt-tutorial', plugin_dir_url( __FILE__ ) .'admin.js' );
+	wp_enqueue_script( 'tmnt-tutorial', plugin_dir_url( __FILE__ ) .'admin.js', array( 'jquery', 'backbone', 'underscore' ) );
 	wp_localize_script( 'tmnt-tutorial', 'tmnt', array( 'imgSrc' => plugin_dir_url( __FILE__ ) . 'images/' ) );
 }
