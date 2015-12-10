@@ -49,13 +49,6 @@ jQuery( document ).ready( function( $ ) {
 
 		// Set our delete character data character so that we can delete this character.
 		$( '.delete' ).data( 'character', $( this ).val() );
-
-		// Show the character info section if we havent't selected the 'reset' option.
-		if ( $( this ).val() == '' ) {
-			$( '.character-info' ).hide();
-		} else {
-			$( '.character-info' ).show();
-		}
 	} );
 	
 	/*
@@ -110,6 +103,6 @@ jQuery( document ).ready( function( $ ) {
 		$( '.img' ).attr( 'src', img );
 
 		// Show the character info section if we havent't selected the 'reset' option.
-		$( '.character-info' ).hide();
+		$( '.contact-card' ).html( '<h4>Character Info Will Appear Here</h4>' );
 	}
 } );
