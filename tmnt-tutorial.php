@@ -65,6 +65,9 @@ function tmnt_tutorial() {
 	   padding: 0 20px 20px;
 	   width: 205px;
 	}
+	.contact-card h4 {
+		margin-left: 85px;
+	}
 	</style>
 	<div>
 		<h1>Select A TMNT Character!</h1>
@@ -85,21 +88,24 @@ function tmnt_tutorial() {
 			</ul>
 			<input type="button" class="button-secondary reset" value="Reset">
 		</div>
-		<div class="character-info" style="display:none">
+		<div class="character-info">
 			<div class="contact-card">
-			   <div class="profile-pic">
-			       <img class="img" src="http://placehold.it/100x100">
-			   </div>
-			   <div class="profile-info">
-			       <h2 class="name"></h2>
-			       <ul>
-			           <li><strong>Favourite Weapon:</strong> <span class="weapon"></span></li>
-			           <li><strong>Favourite Colour:</strong> <span class="colour"></span></li>
-			           <li><strong>Favourite Saying:</strong> <span class="saying"></span></li>
-			           <li><strong>Favourite Food:</strong> <span class="food"></span></li>
-			       </ul>
-			       <a href="#" class="delete">Delete</a>
-			   </div>
+				<h4>Character Info Will Appear Here</h4>
+				<!--
+				<div class="profile-pic">
+					<img class="img" src="http://placehold.it/100x100">
+				</div>
+				<div class="profile-info">
+					<h2 class="name"></h2>
+					<ul>
+						<li><strong>Favourite Weapon:</strong> <span class="weapon"></span></li>
+						<li><strong>Favourite Colour:</strong> <span class="colour"></span></li>
+						<li><strong>Favourite Saying:</strong> <span class="saying"></span></li>
+						<li><strong>Favourite Food:</strong> <span class="food"></span></li>
+					</ul>
+					<a href="#" class="delete">Delete</a>
+				</div>
+				-->
 			</div>
 		</div>
 	</div>
