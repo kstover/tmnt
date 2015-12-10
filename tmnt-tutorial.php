@@ -26,10 +26,13 @@ add_action( 'admin_menu', 'tmnt_tutorial_add_menu' );
 function tmnt_tutorial() {
 	?>
 	<style>
+	li {
+		list-style: none !important;
+	}
 	.character-select {
 		float: left;
 		display: block;
-		width: 200px;
+		width: 40%;
 	}
 	.character-select::after {
 	   clear: both;
@@ -38,7 +41,7 @@ function tmnt_tutorial() {
 	}
 	.character-info {
 	   float: left;
-	   width: 400px;
+	   width: 60%;
 	}
 	.character-info::after {
 	   clear: both;
@@ -48,7 +51,8 @@ function tmnt_tutorial() {
 	.contact-card {
 	   background: #fff;
 	   border: 1px solid #ccc;
-	   width: 400px;
+	   width: 100%;
+	   margin: 30px;
 	}
 	.contact-card::after {
 	   clear: both;
@@ -58,18 +62,29 @@ function tmnt_tutorial() {
 	.contact-card .profile-pic {
 	   float: left;
 	   padding: 20px;
-	   width: 100px;
+	   width: 30%;
 	}
 	.contact-card .profile-info {
 	   float: left;
-	   padding: 0 20px 20px;
-	   width: 205px;
+	   padding: 20px;
+	   width: 70%;
 	}
 	.contact-card h4 {
 		margin-left: 85px;
 	}
+	.tmnt-wrapper {
+		width: 100%;
+		clear: both;
+		float: none;
+		margin: 30px;
+	}
+	.tmnt-wrapper::after {
+		clear: both;
+		content: "";
+		display: block;
+	}
 	</style>
-	<div>
+	<div class="tmnt-wrapper">
 		<h1>Select A TMNT Character!</h1>
 		<div class="character-select"></div>
 		<div class="character-info">
@@ -113,3 +128,14 @@ function tmnt_tutorial_css_js() {
 	wp_enqueue_script( 'tmnt-tutorial', plugin_dir_url( __FILE__ ) .'admin.js', array( 'jquery', 'backbone', 'underscore' ) );
 	wp_localize_script( 'tmnt-tutorial', 'tmnt', array( 'imgSrc' => plugin_dir_url( __FILE__ ) . 'images/' ) );
 }
+
+function tmnt_tutorial_shortcode() {
+	tmnt_tutorial_css_js();
+	ob_start();
+	tmnt_tutorial();
+	$content = ob_get_contents();
+	ob_end_clean();
+	return $content;
+}
+
+add_shortcode( 'tmnt_tutorial', 'tmnt_tutorial_shortcode' );

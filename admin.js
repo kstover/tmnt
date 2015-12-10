@@ -1,11 +1,64 @@
 /*
+ * Working with WordPress in PHP, we need to prefix our functions so that we avoid collision.
+ * When we're working in JS, we need to do the same thing. 
+ * 
+ * We'll create an object to hold our functions and variables, which will avoid any collision.
+ * This will let us do things like: tmnt.variable rather than just variable.
+ * These are called object properties. Note that a property can be a variable or a function or another object.
+ *
+ * Unlike PHP, if we give a function the same name as a function that already exists, we won't get an error; the last reference on the page will be used.
+ * The same goes for variables.
+ *
+ * This definition is outside of our document.ready so that it's available as soon as the page loads.
+ * This means that other code that's wrapped in document.ready could read it as well.
+ * In this example that isn't very important, but its generally good practice if you think that the variable might be accessed by other JS code.
+ *
+ * 
+ * In JS, you can create a new object at any time by using: var obj = {}
+ * 
+ * You can also use:
+ * var obj = {
+ * 	  name: 'bob',
+ * 	  address: '123 any street',
+ * 	  city: 'myTown'
+ * }
+ *
+ * Which would yield:
+ *
+ * obj.name = 'bob';
+ * obj.address = '123 any street';
+ * obj.city = 'myTown';
+ *
+ * The tmnt = tmnt || {} code means: if tmnt is already defined, use that variable. If it isn't create a new object.
+ */
+var tmnt = tmnt || {}
+
+/*
+ * In JS, we can set object properties using the . notation. Here, we setup our default character array.
+ * 
  * When we instantiate the character collection, we'll be passing it the information we'd like to start with.
- * [] is the JS notation for an array.
+ * 
+ * [] is the JS notation for an array. There aren't any associative arrays in JS. If you want an associative, array, use an object.
+ * 
+ * This is an example of creating an array:
+ * 
+ * var myStuff = [
+ * 	 'katana',
+ * 	 'throwing star',
+ * 	 'ninja mask'
+ * ];
+ *
+ * Which would yield:
+ *
+ * myStuff[0] = 'katana';
+ * myStuff[1] = 'throwing star';
+ * mystuff[2] = 'ninja mask';
+ * 
  * Each section of {} is one object and will be added as one model.
  *
  * We're defining this data in our JS file, but ideally it would come from our server or another data source.
  */
-var defaultCharacters = [
+tmnt.defaultCharacters = [
 	{
 		id: 'leonardo',
 		name: 'Leonardo',
@@ -51,7 +104,7 @@ jQuery( document ).ready( function( $ ) {
 	 * Think of this like creating a class in PHP.
 	 * We can instantiate the model by calling: new CharacterModel()
 	 */
-	var CharacterModel = Backbone.Model.extend();
+	tmnt.CharacterModel = Backbone.Model.extend();
 	/*
 	 * Setup our Backbone collection that will hold all of our characters
 	 * This is a container for multiple models. Like the model above, this is just our class definition.
@@ -64,34 +117,67 @@ jQuery( document ).ready( function( $ ) {
 	 * Note that we don't pass an INSTANTIATED variable, but the model definition itself.
 	 * Anytime we add a new model to this collection, it'll create a new model of that type.
 	 */
-	var CharacterCollection = Backbone.Collection.extend( {
+	tmnt.CharacterCollection = Backbone.Collection.extend( {
 		// Use the character model we defined above.
-		model: CharacterModel
+		model: tmnt.CharacterModel
 	} );
 
 	/*
 	 * Views represent UI output. 
 	 * Because Backbone isn't opinionated, we have some crucial pieces to setup here, especially the render function.
 	 */
-	var CharacterSelectView = Backbone.View.extend( {
+	tmnt.CharacterSelectView = Backbone.View.extend( {
 		// This is the jQuery/CSS selector that represents the DOM element we are going to reference in our render function.
 		el: '.character-select',
+		/*
+		 * We don't necessarily need to define these as view-objects, but it's helpful when we're reviewing our code later.
+		 */
 		liTemplate: '#tmpl-character-radio',
 		resetTemplate: '#tmpl-character-reset',
 
+		/*
+		 * As the name implies, this runs whenever we call new tmnt.CharacterSelectView()
+		 */
 		initialize: function() {
-			// Backbone views don't automatically render when you create them, so if we want to self-render, we have to do that here.
+			/*
+			 * 
+			 * Usually 'this' refers to the immediate context of where you are.
+			 * If you use jQuery to select an element, for example, 'this' will refer to that element.
+			 * $( '.my-class' ).click( function() { console.log( $( this ) ) } );
+			 * will output the jQuery representation of the element with the class of 'my-class'.
+			 *
+			 * When you're working within a function that is the property of a JS object, as we are currently, 'this' refers to the object.
+			 * So you can refer to other object properties by using 'this.property'.
+			 *
+			 * In this function, we're referring to other properties of the tmnt.CharacterSelectView by using this.property.
+			 *
+			 * Backbone views don't automatically render when you create them, so if we want to self-render, we have to do that here.
+			 */
 			this.render();
 			/*
 			 * Views can listen to the collection and model passed to them.
+			 * When we instantiate this view, we'll be passing a collection to it.
+			 * We can refer that collection in our functions by using this.collection.
+			 * 
 			 * Here, we tell this view to call the render function when a model is removed from the collection and when the collection is reset.
 			 */
 			this.collection.on( 'remove', this.render, this );
 			this.collection.on( 'reset', this.render, this );
 		},
 
+		/*
+		 * This function tells our view how to inject HTML into our DOM.
+		 * Note that Backbone views don't define render by default. We have to create it ourselves.
+		 */
 		render: function() {
+			/*
+			 * I don't like including any HTML in my JS, but for this tutorial I felt like it was less confusing to read than the other options.
+			 * In a more advanced tutorial, we'll cover some other ways to wrap template output.
+			 */ 
 			var html = '<ul>';
+			/*
+			 * We are going to be looping over all of the models in our character collection, and within that context 'this' refers to the item being looped over.
+			 */
 			var that = this;
 			_.each( this.collection.models, function( character ) {
 				html += _.template( $( that.liTemplate ).html(), character.attributes );
@@ -113,12 +199,12 @@ jQuery( document ).ready( function( $ ) {
 		changeCharacter: function( e ) {
 			var characterID = e.target.value;
 			var characterModel = this.collection.get( characterID );
-			cardView.render( characterModel );
+			tmnt.cardView.render( characterModel );
 		},
 
 		clickReset: function( e ) {
-			characters.reset( defaultCharacters );
-			cardView.render();
+			tmnt.characters.reset( tmnt.defaultCharacters );
+			tmnt.cardView.render();
 		}
 
 	} );
@@ -126,7 +212,7 @@ jQuery( document ).ready( function( $ ) {
 	/*
 	 * Create our card view
 	 */
-	 var CardView = Backbone.View.extend( {
+	 tmnt.CardView = Backbone.View.extend( {
 	 	el: '.contact-card',
 	 	template: '#tmpl-contact-card',
 	 	emptyTemplate: '#tmpl-contact-card-empty',
@@ -151,14 +237,15 @@ jQuery( document ).ready( function( $ ) {
 	 	},
 
 	 	deleteCharacter: function( e ) {
-	 		characters.remove( this.model );
+	 		e.preventDefault();
+	 		tmnt.characters.remove( this.model );
 	 		this.render();
 	 	}
 
 	 } );
 
-	var characters = new CharacterCollection( defaultCharacters );
+	tmnt.characters = new tmnt.CharacterCollection( tmnt.defaultCharacters );
 
-	var characterSelectView = new CharacterSelectView( { collection: characters } );
-	var cardView = new CardView();
+	tmnt.characterSelectView = new tmnt.CharacterSelectView( { collection: tmnt.characters } );
+	tmnt.cardView = new tmnt.CardView();
 } );
